@@ -1,0 +1,27 @@
+# build output
+obj/
+bin/
+target/
+*.dll
+*.exe
+release/
+# third-party toolkit that sits in this folder (not part of this project)
+toolkit/
+# never commit game files, converted assets or secrets
+*.dcx
+*.bnd
+*.bhd
+*.bdt
+*.hkx
+*.flver
+*.tpf
+*.param
+regulation*
+*.sl2
+*.mec
+*.zip
+.env
+*token*
+# local test output
+logs/
+labmod/

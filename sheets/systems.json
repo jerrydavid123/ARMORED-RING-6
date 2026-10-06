@@ -1,0 +1,74 @@
+{
+  "_about": "Game-wide numbers the mod changes. One row per system; build_regulation.py and the DLL read these.",
+  "rows": [
+    {
+      "id": "sys_size",
+      "what": "How much bigger than a Tarnished the frame stands (model scale set by the DLL; hit capsule height set by SpEffect 99900100) (capsule rate back to 1.0: a 2x-tall hit capsule snagged on stairs and rocks)",
+      "size_scale": 2.0,
+      "capsule_height_rate": 1.0,
+      "status": {
+        "filled": true,
+        "verified": true
+      }
+    },
+    {
+      "id": "sys_camera",
+      "what": "Follow camera pulled back and raised to suit the bigger frame: LockCamParam rows 0 (free camera) and 1 (lock-on camera)",
+      "rows": [
+        0,
+        1
+      ],
+      "dist_scale": 2.0,
+      "height_scale": 2.0,
+      "lock_range_scale": 1.5,
+      "status": {
+        "filled": true,
+        "verified": false
+      }
+    },
+    {
+      "id": "sys_tutorial_skip",
+      "what": "New characters are warped out of the Chapel of Anticipation to the Limgrave arrival point (patched event script written from the player's own copy)",
+      "event_id": 10009999,
+      "map": "m10_00_00_00",
+      "target_tile": "60_42_36",
+      "target_region_entity": 1042362980,
+      "status": {
+        "filled": true,
+        "verified": false
+      }
+    },
+    {
+      "id": "sys_game_version",
+      "what": "Game versions the mod's code add-on supports (the Elden Ring library it uses only knows these)",
+      "versions": ">=2.7.1.0 <=2.7.1.1",
+      "status": {
+        "filled": true,
+        "verified": true
+      }
+    },
+    {
+      "id": "sys_weapons",
+      "damage_scale": 0.5,
+      "aim_height_m": 2.7,
+      "muzzle_forward_m": 1.8,
+      "blade_lunge_mps": 28.3,
+      "blade_lunge_s": 0.22,
+      "note": "AC6 weapon numbers come from sheets/weapon_stats.json (tools/ac6_weapons.py). damage_scale converts AC6 damage points into Elden Ring damage (AC6 enemies have ~10x the HP); gun projectiles are spawned by the DLL from Bullet rows 999100x0 (+1 charged) built by tools/build_regulation.py. aim_height_m/muzzle_forward_m place the muzzle relative to the frame. blade_lunge = AC6 BladeHoming speed 340 km/h x 0.3 for blade_lunge_s.",
+      "debug_sfx": [
+        523002,
+        440790,
+        450872,
+        620332,
+        631861,
+        440531,
+        450832,
+        450833,
+        440781,
+        633560,
+        450313,
+        523042
+      ]
+    }
+  ]
+}

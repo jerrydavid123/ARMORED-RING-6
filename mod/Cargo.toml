@@ -1,0 +1,18 @@
+[package]
+name = "tarnished_mech"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+eldenring = { git = "https://github.com/vswarte/fromsoftware-rs", package = "eldenring" }
+fromsoftware-shared = { git = "https://github.com/vswarte/fromsoftware-rs", package = "fromsoftware-shared" }
+retour = "0.3"
+windows-sys = { version = "0.61.2", features = ["Win32_System_Memory", "Win32_System_LibraryLoader", "Win32_Foundation", "Win32_Storage_FileSystem", "Win32_Security", "Win32_System_IO"] }
+
+[profile.release]
+opt-level = 2
+lto = true
+panic = "unwind"

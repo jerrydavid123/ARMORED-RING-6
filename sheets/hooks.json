@@ -1,0 +1,125 @@
+{
+ "_about": "Every place the mod touches the game. 'how' is the mechanism, 'game_data' what is read or written, 'proof' what shows it works.",
+ "rows": [
+  {
+   "id": "hook_boot",
+   "how": "DllMain spawns a thread; wait for game window + fresh singleton scan before touching eldenring crate",
+   "game_data": "CSTask, WorldChrMan",
+   "proof": "log line 'boot ready' with player found",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_player_tick",
+   "how": "register a per-frame CS task (CSTaskGroupIndex after physics) or poll from the boot thread at 120 Hz",
+   "game_data": "main player ChrIns",
+   "proof": "log of position every second",
+   "status": {
+    "filled": true,
+    "verified": true
+   }
+  },
+  {
+   "id": "hook_input",
+   "how": "CSChrActionRequestModule.new_action_presses.sp_move() (dodge/roll/sprint press) read each frame; no DirectInput hook needed",
+   "game_data": "dodge, jump, move vector",
+   "proof": "log of presses",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_move_vector",
+   "how": "stick/WASD direction relative to camera",
+   "game_data": "move direction",
+   "proof": "boost goes where the stick points",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_position_write",
+   "how": "physics.position += direction*step along the roll direction read 3 frames after the press, clamped by CSPhysWorld::cast_ray (filter 0x2000058) from chest height; chr_proxy_pos_update_requested=true",
+   "game_data": "CSChrPhysicsModule.position + update request",
+   "proof": "player covers boost_distance_m in boost_duration_s, no clipping into walls",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_gravity",
+   "how": "gravity_multiplier=0 and gravity_disabled=true while flying/gliding (restored on landing); fall_timer=0 and material.disable_fall_damage while flying and 1.5 s after",
+   "game_data": "CSChrPhysicsModule",
+   "proof": "no fall death after glide ends",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_en_gauge",
+   "how": "write FP in both the character data module and PlayerGameData.current_fp; EN refills after en_regen_delay_s at en_regen_pct_per_s",
+   "game_data": "FP / max FP",
+   "proof": "FP bar drains on boost and refills after delay",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_iframes",
+   "how": "grant an existing invulnerability SpEffect during boost_iframe_s",
+   "game_data": "SpEffect id of vanilla roll i-frames (to find)",
+   "proof": "enemy hit during boost deals no damage",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_frame_detect",
+   "how": "PlayerGameData.archetype (0 Vagabond, 1 Warrior, 2 Hero) -> class row 3000+archetype -> frame; only when character_name is set and level > 0",
+   "game_data": "PlayerGameData archetype",
+   "proof": "log shows frame_light / medium / heavy",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_save_redirect",
+   "how": "hook ntdll NtCreateFile/NtOpenFile/NtDeleteFile/NtQuery*Attributes/NtSetInformationFile(rename) and redirect ER0000.sl2(.bak) to ER0000.mec(.bak); string patching alone was NOT enough",
+   "game_data": "wide string 'ER0000'",
+   "proof": "new file appears in the save folder; user's saves untouched",
+   "status": {
+    "filled": true,
+    "verified": true
+   }
+  },
+  {
+   "id": "hook_params",
+   "how": "regulation.bin rebuilt from the sheets by tools/build_regulation.py (protector hide flags and weight, class stats and loadouts, weapon clones, camera rows)",
+   "game_data": "CharaInitParam, EquipParamWeapon, Bullet, AtkParam_Pc, BehaviorParam_PC",
+   "proof": "new weapons appear and fire in game",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  },
+  {
+   "id": "hook_text",
+   "how": "FMG edits in menu/item msgbnd for class and item names",
+   "game_data": "msg/engUS",
+   "proof": "class screen shows Light/Medium/Heavy Frame",
+   "status": {
+    "filled": true,
+    "verified": false
+   }
+  }
+ ]
+}

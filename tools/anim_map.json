@@ -1,0 +1,32 @@
+{
+  "_note": "Armored Core VI clip(s) -> Elden Ring clip ids that play in the same game state. ac6 lists clips played one after the other. Every ported clip is time-fitted to the Elden Ring clip it replaces, so the Elden Ring state machine's timing and TAE events stay aligned. Identity ports (same a000_ id in both games) are done for every common id not listed here.",
+  "mappings": [
+    {
+      "name": "blade slash (L1): AC6 left-arm laser blade attack stance; replaces the 5 hits of the game's L1 combo; no root motion, the mod does the lunge",
+      "ac6": ["a211_030250"],
+      "er": ["a029_035000", "a029_035010", "a029_035020", "a029_035030", "a029_035040"],
+      "zero_root": true
+    },
+    {
+      "name": "jump (take-off: crouch, launch, legs trailing)",
+      "ac6": ["a000_022300"],
+      "er": ["a000_202000", "a000_202010", "a000_202011", "a000_202012", "a000_202013", "a000_202020", "a000_202021", "a000_202022", "a000_202023"]
+    },
+    {
+      "name": "quick boost / dodge (AC6 quick boost dip; keeps AC6 length, the mod's burst lasts about that long)",
+      "ac6": ["a000_022200"],
+      "er": ["a000_022200"],
+      "fit": false
+    },
+    {
+      "name": "fall / hover loop (AC6 crouched boost stance)",
+      "ac6": ["a000_025100"],
+      "er": ["a000_202040"]
+    },
+    {
+      "name": "landing (crouch absorb, then stand up)",
+      "ac6": ["a000_025000", "a000_025200"],
+      "er": ["a000_202100", "a000_202110", "a000_202111", "a000_202112", "a000_202113", "a000_202115", "a000_202116", "a000_202117", "a000_202118", "a000_202120", "a000_202125", "a000_202127"]
+    }
+  ]
+}
